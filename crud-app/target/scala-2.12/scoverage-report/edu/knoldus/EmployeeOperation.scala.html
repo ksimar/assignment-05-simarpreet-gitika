@@ -1,0 +1,1735 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          edu\knoldus\EmployeeOperation.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package edu.knoldus
+</span>2 <span style=''>
+</span>3 <span style=''>import java.sql.SQLException
+</span>4 <span style=''>
+</span>5 <span style=''>/**
+</span>6 <span style=''>  * Created by gitik on 01-02-2017.
+</span>7 <span style=''>  */
+</span>8 <span style=''>class EmployeeOperation {
+</span>9 <span style=''>
+</span>10 <span style=''>  def create(id: Int, name: String, address: String, phone: String, deptId: Int, projectId: Int): Int = {
+</span>11 <span style=''>    val conn = </span><span style='background: #AEF1AE'>ConnectionFactory.getConnection()</span><span style=''>
+</span>12 <span style=''>    conn match {
+</span>13 <span style=''>      case Some(c) =&gt; {
+</span>14 <span style=''>        try {
+</span>15 <span style=''>          </span><span style='background: #AEF1AE'>val statement = c.prepareStatement(&quot;insert into Employee values(?,?,?,?,?,?)&quot;)
+</span>16 <span style=''></span><span style='background: #AEF1AE'>          statement.setInt(1, id)
+</span>17 <span style=''></span><span style='background: #AEF1AE'>          statement.setString(2, name)
+</span>18 <span style=''></span><span style='background: #AEF1AE'>          statement.setString(3, address)
+</span>19 <span style=''></span><span style='background: #AEF1AE'>          statement.setString(4, phone)
+</span>20 <span style=''></span><span style='background: #AEF1AE'>          statement.setInt(5, deptId)
+</span>21 <span style=''></span><span style='background: #AEF1AE'>          statement.setInt(6, projectId)
+</span>22 <span style=''></span><span style='background: #AEF1AE'>          val resCreate = statement.executeUpdate()
+</span>23 <span style=''></span><span style='background: #AEF1AE'>          resCreate</span><span style=''>
+</span>24 <span style=''>        }
+</span>25 <span style=''>        catch {
+</span>26 <span style=''>          case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>println(&quot;SQL Exception &quot; + ex.getMessage)</span><span style=''>
+</span>27 <span style=''>            -</span><span style='background: #F0ADAD'>2</span><span style=''>
+</span>28 <span style=''>        }
+</span>29 <span style=''>      }
+</span>30 <span style=''>      case None =&gt; {
+</span>31 <span style=''>        </span><span style='background: #F0ADAD'>println(&quot;Connection Failed!&quot;)</span><span style=''>
+</span>32 <span style=''>        -</span><span style='background: #F0ADAD'>1</span><span style=''>
+</span>33 <span style=''>      }
+</span>34 <span style=''>    }
+</span>35 <span style=''>  }
+</span>36 <span style=''>
+</span>37 <span style=''>
+</span>38 <span style=''>  def update(id: Int, name: String, address: String, phone: String, deptId: Int, projectId: Int): Int = {
+</span>39 <span style=''>    val conn = </span><span style='background: #F0ADAD'>ConnectionFactory.getConnection()</span><span style=''>
+</span>40 <span style=''>    conn match {
+</span>41 <span style=''>      case Some(c) =&gt; {
+</span>42 <span style=''>        try {
+</span>43 <span style=''>
+</span>44 <span style=''>          </span><span style='background: #F0ADAD'>val statement = c.prepareStatement(&quot;update Employee SET name=?, phone= ?, deptId=?, projectId=? where id=?&quot;)
+</span>45 <span style=''></span><span style='background: #F0ADAD'>          statement.setString(1, name)
+</span>46 <span style=''></span><span style='background: #F0ADAD'>          statement.setString(2, address)
+</span>47 <span style=''></span><span style='background: #F0ADAD'>          statement.setString(3, phone)
+</span>48 <span style=''></span><span style='background: #F0ADAD'>          statement.setInt(4, deptId)
+</span>49 <span style=''></span><span style='background: #F0ADAD'>          statement.setInt(5, projectId)
+</span>50 <span style=''></span><span style='background: #F0ADAD'>          statement.setInt(6, id)
+</span>51 <span style=''></span><span style='background: #F0ADAD'>          val resUpdate = statement.executeUpdate()
+</span>52 <span style=''></span><span style='background: #F0ADAD'>          resUpdate</span><span style=''>
+</span>53 <span style=''>        }
+</span>54 <span style=''>        catch {
+</span>55 <span style=''>          case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>println(&quot;SQL Exception &quot; + ex.getMessage)</span><span style=''>
+</span>56 <span style=''>            -</span><span style='background: #F0ADAD'>2</span><span style=''>
+</span>57 <span style=''>        }
+</span>58 <span style=''>      }
+</span>59 <span style=''>      case None =&gt; {
+</span>60 <span style=''>        </span><span style='background: #F0ADAD'>println(&quot;Connection Failed!&quot;)</span><span style=''>
+</span>61 <span style=''>        -</span><span style='background: #F0ADAD'>1</span><span style=''>
+</span>62 <span style=''>      }
+</span>63 <span style=''>    }
+</span>64 <span style=''>  }
+</span>65 <span style=''>
+</span>66 <span style=''>  def delete(id: Int): Int = {
+</span>67 <span style=''>    val conn = </span><span style='background: #F0ADAD'>ConnectionFactory.getConnection()</span><span style=''>
+</span>68 <span style=''>    conn match {
+</span>69 <span style=''>      case Some(c) =&gt; {
+</span>70 <span style=''>        try {
+</span>71 <span style=''>          </span><span style='background: #F0ADAD'>val statement = c.prepareStatement(&quot;delete Employee where id=?&quot;)
+</span>72 <span style=''></span><span style='background: #F0ADAD'>          statement.setInt(1, id)
+</span>73 <span style=''></span><span style='background: #F0ADAD'>          val resDelete = statement.executeUpdate()
+</span>74 <span style=''></span><span style='background: #F0ADAD'>          resDelete</span><span style=''>
+</span>75 <span style=''>        }
+</span>76 <span style=''>        catch {
+</span>77 <span style=''>          case ex: SQLException =&gt; </span><span style='background: #F0ADAD'>println(&quot;SQL Exception &quot; + ex.getMessage)</span><span style=''>
+</span>78 <span style=''>            -</span><span style='background: #F0ADAD'>2</span><span style=''>
+</span>79 <span style=''>        }
+</span>80 <span style=''>      }
+</span>81 <span style=''>      case None =&gt; {
+</span>82 <span style=''>        </span><span style='background: #F0ADAD'>println(&quot;Connection Failed!&quot;)</span><span style=''>
+</span>83 <span style=''>        -</span><span style='background: #F0ADAD'>1</span><span style=''>
+</span>84 <span style=''>      }
+</span>85 <span style=''>    }
+</span>86 <span style=''>  }
+</span>87 <span style=''>
+</span>88 <span style=''>  def read(): List[Employee] = {
+</span>89 <span style=''>    val conn = </span><span style='background: #F0ADAD'>ConnectionFactory.getConnection()</span><span style=''>
+</span>90 <span style=''>    conn match {
+</span>91 <span style=''>      case Some(c) =&gt; {
+</span>92 <span style=''>        try {
+</span>93 <span style=''>          </span><span style='background: #F0ADAD'>val statement = c.createStatement()
+</span>94 <span style=''></span><span style='background: #F0ADAD'>          val EmpResultSet = statement.executeQuery(&quot;select * from Emloyee&quot;)
+</span>95 <span style=''></span><span style='background: #F0ADAD'>          val employeeList = List[Employee]()
+</span>96 <span style=''></span><span style='background: #F0ADAD'>
+</span>97 <span style=''></span><span style='background: #F0ADAD'>          while (EmpResultSet.next()) {
+</span>98 <span style=''></span><span style='background: #F0ADAD'>            val id = EmpResultSet.getInt(1)
+</span>99 <span style=''></span><span style='background: #F0ADAD'>            val name = EmpResultSet.getString(2)
+</span>100 <span style=''></span><span style='background: #F0ADAD'>            val address = EmpResultSet.getString(3)
+</span>101 <span style=''></span><span style='background: #F0ADAD'>            val phone = EmpResultSet.getString(4)
+</span>102 <span style=''></span><span style='background: #F0ADAD'>            val deptId = EmpResultSet.getInt(5)
+</span>103 <span style=''></span><span style='background: #F0ADAD'>            val projId = EmpResultSet.getInt(6)
+</span>104 <span style=''></span><span style='background: #F0ADAD'>            employeeList.+:(Employee(id, name, address, phone, deptId, projId))
+</span>105 <span style=''></span><span style='background: #F0ADAD'>          }
+</span>106 <span style=''></span><span style='background: #F0ADAD'>          employeeList</span><span style=''>
+</span>107 <span style=''>        }
+</span>108 <span style=''>        catch {
+</span>109 <span style=''>          case ex: SQLException =&gt; {
+</span>110 <span style=''>            </span><span style='background: #F0ADAD'>println(&quot;SQLException &quot; + ex.getMessage)</span><span style=''>
+</span>111 <span style=''>            </span><span style='background: #F0ADAD'>List[Employee]()</span><span style=''>
+</span>112 <span style=''>          }
+</span>113 <span style=''>        }
+</span>114 <span style=''>      }
+</span>115 <span style=''>      case None =&gt; {
+</span>116 <span style=''>        </span><span style='background: #F0ADAD'>println(&quot;Connection Failed!&quot;)</span><span style=''>
+</span>117 <span style=''>        </span><span style='background: #F0ADAD'>List[Employee]()</span><span style=''>
+</span>118 <span style=''>      }
+</span>119 <span style=''>    }
+</span>120 <span style=''>  }
+</span>121 <span style=''>
+</span>122 <span style=''>  case class Employee(id: Int, name: String, address: String, phone: String, deptId: Int, projectId: Int)
+</span>123 <span style=''>
+</span>124 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          11
+        </td>
+        <td>
+          43
+        </td>
+        <td>
+          254
+          -
+          287
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.ConnectionFactory.getConnection
+        </td>
+        <td style="background: #AEF1AE">
+          ConnectionFactory.getConnection()
+        </td>
+      </tr><tr>
+        <td>
+          14
+        </td>
+        <td>
+          52
+        </td>
+        <td>
+          357
+          -
+          749
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #AEF1AE">
+          {
+  val statement: java.sql.PreparedStatement = c.prepareStatement(&quot;insert into Employee values(?,?,?,?,?,?)&quot;);
+  statement.setInt(1, id);
+  statement.setString(2, name);
+  statement.setString(3, address);
+  statement.setString(4, phone);
+  statement.setInt(5, deptId);
+  statement.setInt(6, projectId);
+  val resCreate: Int = statement.executeUpdate();
+  resCreate
+}
+        </td>
+      </tr><tr>
+        <td>
+          15
+        </td>
+        <td>
+          44
+        </td>
+        <td>
+          373
+          -
+          435
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Connection.prepareStatement
+        </td>
+        <td style="background: #AEF1AE">
+          c.prepareStatement(&quot;insert into Employee values(?,?,?,?,?,?)&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          16
+        </td>
+        <td>
+          45
+        </td>
+        <td>
+          447
+          -
+          470
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #AEF1AE">
+          statement.setInt(1, id)
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          46
+        </td>
+        <td>
+          482
+          -
+          510
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #AEF1AE">
+          statement.setString(2, name)
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          47
+        </td>
+        <td>
+          522
+          -
+          553
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #AEF1AE">
+          statement.setString(3, address)
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          48
+        </td>
+        <td>
+          565
+          -
+          594
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #AEF1AE">
+          statement.setString(4, phone)
+        </td>
+      </tr><tr>
+        <td>
+          20
+        </td>
+        <td>
+          49
+        </td>
+        <td>
+          606
+          -
+          633
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #AEF1AE">
+          statement.setInt(5, deptId)
+        </td>
+      </tr><tr>
+        <td>
+          21
+        </td>
+        <td>
+          50
+        </td>
+        <td>
+          645
+          -
+          675
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #AEF1AE">
+          statement.setInt(6, projectId)
+        </td>
+      </tr><tr>
+        <td>
+          22
+        </td>
+        <td>
+          51
+        </td>
+        <td>
+          703
+          -
+          728
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.executeUpdate
+        </td>
+        <td style="background: #AEF1AE">
+          statement.executeUpdate()
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          53
+        </td>
+        <td>
+          822
+          -
+          838
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          56
+        </td>
+        <td>
+          814
+          -
+          855
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;SQL Exception &quot;.+(ex.getMessage()))
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          55
+        </td>
+        <td>
+          822
+          -
+          854
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.String.+
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;.+(ex.getMessage())
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          54
+        </td>
+        <td>
+          841
+          -
+          854
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Throwable.getMessage
+        </td>
+        <td style="background: #F0ADAD">
+          ex.getMessage()
+        </td>
+      </tr><tr>
+        <td>
+          27
+        </td>
+        <td>
+          57
+        </td>
+        <td>
+          870
+          -
+          871
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -2
+        </td>
+      </tr><tr>
+        <td>
+          31
+        </td>
+        <td>
+          58
+        </td>
+        <td>
+          923
+          -
+          952
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;Connection Failed!&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          59
+        </td>
+        <td>
+          963
+          -
+          964
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -1
+        </td>
+      </tr><tr>
+        <td>
+          39
+        </td>
+        <td>
+          60
+        </td>
+        <td>
+          1113
+          -
+          1146
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.ConnectionFactory.getConnection
+        </td>
+        <td style="background: #F0ADAD">
+          ConnectionFactory.getConnection()
+        </td>
+      </tr><tr>
+        <td>
+          42
+        </td>
+        <td>
+          69
+        </td>
+        <td>
+          1218
+          -
+          1640
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val statement: java.sql.PreparedStatement = c.prepareStatement(&quot;update Employee SET name=?, phone= ?, deptId=?, projectId=? where id=?&quot;);
+  statement.setString(1, name);
+  statement.setString(2, address);
+  statement.setString(3, phone);
+  statement.setInt(4, deptId);
+  statement.setInt(5, projectId);
+  statement.setInt(6, id);
+  val resUpdate: Int = statement.executeUpdate();
+  resUpdate
+}
+        </td>
+      </tr><tr>
+        <td>
+          44
+        </td>
+        <td>
+          61
+        </td>
+        <td>
+          1234
+          -
+          1326
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Connection.prepareStatement
+        </td>
+        <td style="background: #F0ADAD">
+          c.prepareStatement(&quot;update Employee SET name=?, phone= ?, deptId=?, projectId=? where id=?&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          45
+        </td>
+        <td>
+          62
+        </td>
+        <td>
+          1338
+          -
+          1366
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setString(1, name)
+        </td>
+      </tr><tr>
+        <td>
+          46
+        </td>
+        <td>
+          63
+        </td>
+        <td>
+          1378
+          -
+          1409
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setString(2, address)
+        </td>
+      </tr><tr>
+        <td>
+          47
+        </td>
+        <td>
+          64
+        </td>
+        <td>
+          1421
+          -
+          1450
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setString(3, phone)
+        </td>
+      </tr><tr>
+        <td>
+          48
+        </td>
+        <td>
+          65
+        </td>
+        <td>
+          1462
+          -
+          1489
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setInt(4, deptId)
+        </td>
+      </tr><tr>
+        <td>
+          49
+        </td>
+        <td>
+          66
+        </td>
+        <td>
+          1501
+          -
+          1531
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setInt(5, projectId)
+        </td>
+      </tr><tr>
+        <td>
+          50
+        </td>
+        <td>
+          67
+        </td>
+        <td>
+          1543
+          -
+          1566
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setInt(6, id)
+        </td>
+      </tr><tr>
+        <td>
+          51
+        </td>
+        <td>
+          68
+        </td>
+        <td>
+          1594
+          -
+          1619
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.executeUpdate
+        </td>
+        <td style="background: #F0ADAD">
+          statement.executeUpdate()
+        </td>
+      </tr><tr>
+        <td>
+          55
+        </td>
+        <td>
+          71
+        </td>
+        <td>
+          1732
+          -
+          1745
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Throwable.getMessage
+        </td>
+        <td style="background: #F0ADAD">
+          ex.getMessage()
+        </td>
+      </tr><tr>
+        <td>
+          55
+        </td>
+        <td>
+          73
+        </td>
+        <td>
+          1705
+          -
+          1746
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;SQL Exception &quot;.+(ex.getMessage()))
+        </td>
+      </tr><tr>
+        <td>
+          55
+        </td>
+        <td>
+          70
+        </td>
+        <td>
+          1713
+          -
+          1729
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;
+        </td>
+      </tr><tr>
+        <td>
+          55
+        </td>
+        <td>
+          72
+        </td>
+        <td>
+          1713
+          -
+          1745
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.String.+
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;.+(ex.getMessage())
+        </td>
+      </tr><tr>
+        <td>
+          56
+        </td>
+        <td>
+          74
+        </td>
+        <td>
+          1761
+          -
+          1762
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -2
+        </td>
+      </tr><tr>
+        <td>
+          60
+        </td>
+        <td>
+          75
+        </td>
+        <td>
+          1814
+          -
+          1843
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;Connection Failed!&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          61
+        </td>
+        <td>
+          76
+        </td>
+        <td>
+          1854
+          -
+          1855
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -1
+        </td>
+      </tr><tr>
+        <td>
+          67
+        </td>
+        <td>
+          77
+        </td>
+        <td>
+          1927
+          -
+          1960
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.ConnectionFactory.getConnection
+        </td>
+        <td style="background: #F0ADAD">
+          ConnectionFactory.getConnection()
+        </td>
+      </tr><tr>
+        <td>
+          70
+        </td>
+        <td>
+          81
+        </td>
+        <td>
+          2030
+          -
+          2203
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val statement: java.sql.PreparedStatement = c.prepareStatement(&quot;delete Employee where id=?&quot;);
+  statement.setInt(1, id);
+  val resDelete: Int = statement.executeUpdate();
+  resDelete
+}
+        </td>
+      </tr><tr>
+        <td>
+          71
+        </td>
+        <td>
+          78
+        </td>
+        <td>
+          2046
+          -
+          2094
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Connection.prepareStatement
+        </td>
+        <td style="background: #F0ADAD">
+          c.prepareStatement(&quot;delete Employee where id=?&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          72
+        </td>
+        <td>
+          79
+        </td>
+        <td>
+          2106
+          -
+          2129
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setInt(1, id)
+        </td>
+      </tr><tr>
+        <td>
+          73
+        </td>
+        <td>
+          80
+        </td>
+        <td>
+          2157
+          -
+          2182
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.executeUpdate
+        </td>
+        <td style="background: #F0ADAD">
+          statement.executeUpdate()
+        </td>
+      </tr><tr>
+        <td>
+          77
+        </td>
+        <td>
+          83
+        </td>
+        <td>
+          2295
+          -
+          2308
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Throwable.getMessage
+        </td>
+        <td style="background: #F0ADAD">
+          ex.getMessage()
+        </td>
+      </tr><tr>
+        <td>
+          77
+        </td>
+        <td>
+          82
+        </td>
+        <td>
+          2276
+          -
+          2292
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;
+        </td>
+      </tr><tr>
+        <td>
+          77
+        </td>
+        <td>
+          85
+        </td>
+        <td>
+          2268
+          -
+          2309
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;SQL Exception &quot;.+(ex.getMessage()))
+        </td>
+      </tr><tr>
+        <td>
+          77
+        </td>
+        <td>
+          84
+        </td>
+        <td>
+          2276
+          -
+          2308
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.String.+
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;.+(ex.getMessage())
+        </td>
+      </tr><tr>
+        <td>
+          78
+        </td>
+        <td>
+          86
+        </td>
+        <td>
+          2324
+          -
+          2325
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -2
+        </td>
+      </tr><tr>
+        <td>
+          82
+        </td>
+        <td>
+          87
+        </td>
+        <td>
+          2377
+          -
+          2406
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;Connection Failed!&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          83
+        </td>
+        <td>
+          88
+        </td>
+        <td>
+          2417
+          -
+          2418
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -1
+        </td>
+      </tr><tr>
+        <td>
+          89
+        </td>
+        <td>
+          89
+        </td>
+        <td>
+          2492
+          -
+          2525
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.ConnectionFactory.getConnection
+        </td>
+        <td style="background: #F0ADAD">
+          ConnectionFactory.getConnection()
+        </td>
+      </tr><tr>
+        <td>
+          92
+        </td>
+        <td>
+          107
+        </td>
+        <td>
+          2595
+          -
+          3213
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val statement: java.sql.Statement = c.createStatement();
+  val EmpResultSet: java.sql.ResultSet = statement.executeQuery(&quot;select * from Emloyee&quot;);
+  val employeeList: List[EmployeeOperation.this.Employee] = scala.collection.immutable.Nil;
+  while$1(){
+    if (EmpResultSet.next())
+      {
+        {
+          val id: Int = EmpResultSet.getInt(1);
+          val name: String = EmpResultSet.getString(2);
+          val address: String = EmpResultSet.getString(3);
+          val phone: String = EmpResultSet.getString(4);
+          val deptId: Int = EmpResultSet.getInt(5);
+          val projId: Int = EmpResultSet.getInt(6);
+          employeeList.+:[EmployeeOperation.this.Employee, List[EmployeeOperation.this.Employee]](EmployeeOperation.this.Employee.apply(id, name, address, phone, deptId, projId))(immutable.this.List.canBuildFrom[EmployeeOperation.this.Employee])
+        };
+        while$1()
+      }
+    else
+      ()
+  };
+  employeeList
+}
+        </td>
+      </tr><tr>
+        <td>
+          93
+        </td>
+        <td>
+          90
+        </td>
+        <td>
+          2611
+          -
+          2630
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Connection.createStatement
+        </td>
+        <td style="background: #F0ADAD">
+          c.createStatement()
+        </td>
+      </tr><tr>
+        <td>
+          94
+        </td>
+        <td>
+          91
+        </td>
+        <td>
+          2661
+          -
+          2708
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Statement.executeQuery
+        </td>
+        <td style="background: #F0ADAD">
+          statement.executeQuery(&quot;select * from Emloyee&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          95
+        </td>
+        <td>
+          92
+        </td>
+        <td>
+          2739
+          -
+          2755
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.collection.immutable.Nil
+        </td>
+        <td style="background: #F0ADAD">
+          scala.collection.immutable.Nil
+        </td>
+      </tr><tr>
+        <td>
+          97
+        </td>
+        <td>
+          104
+        </td>
+        <td>
+          2797
+          -
+          3189
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  {
+    val id: Int = EmpResultSet.getInt(1);
+    val name: String = EmpResultSet.getString(2);
+    val address: String = EmpResultSet.getString(3);
+    val phone: String = EmpResultSet.getString(4);
+    val deptId: Int = EmpResultSet.getInt(5);
+    val projId: Int = EmpResultSet.getInt(6);
+    employeeList.+:[EmployeeOperation.this.Employee, List[EmployeeOperation.this.Employee]](EmployeeOperation.this.Employee.apply(id, name, address, phone, deptId, projId))(immutable.this.List.canBuildFrom[EmployeeOperation.this.Employee])
+  };
+  while$1()
+}
+        </td>
+      </tr><tr>
+        <td>
+          97
+        </td>
+        <td>
+          106
+        </td>
+        <td>
+          2769
+          -
+          2769
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          ()
+        </td>
+      </tr><tr>
+        <td>
+          97
+        </td>
+        <td>
+          103
+        </td>
+        <td>
+          2797
+          -
+          2797
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.EmployeeOperation.while$1
+        </td>
+        <td style="background: #F0ADAD">
+          while$1()
+        </td>
+      </tr><tr>
+        <td>
+          97
+        </td>
+        <td>
+          105
+        </td>
+        <td>
+          2769
+          -
+          2769
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          ()
+        </td>
+      </tr><tr>
+        <td>
+          97
+        </td>
+        <td>
+          93
+        </td>
+        <td>
+          2776
+          -
+          2795
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.ResultSet.next
+        </td>
+        <td style="background: #F0ADAD">
+          EmpResultSet.next()
+        </td>
+      </tr><tr>
+        <td>
+          98
+        </td>
+        <td>
+          94
+        </td>
+        <td>
+          2821
+          -
+          2843
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.ResultSet.getInt
+        </td>
+        <td style="background: #F0ADAD">
+          EmpResultSet.getInt(1)
+        </td>
+      </tr><tr>
+        <td>
+          99
+        </td>
+        <td>
+          95
+        </td>
+        <td>
+          2868
+          -
+          2893
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.ResultSet.getString
+        </td>
+        <td style="background: #F0ADAD">
+          EmpResultSet.getString(2)
+        </td>
+      </tr><tr>
+        <td>
+          100
+        </td>
+        <td>
+          96
+        </td>
+        <td>
+          2921
+          -
+          2946
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.ResultSet.getString
+        </td>
+        <td style="background: #F0ADAD">
+          EmpResultSet.getString(3)
+        </td>
+      </tr><tr>
+        <td>
+          101
+        </td>
+        <td>
+          97
+        </td>
+        <td>
+          2972
+          -
+          2997
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.ResultSet.getString
+        </td>
+        <td style="background: #F0ADAD">
+          EmpResultSet.getString(4)
+        </td>
+      </tr><tr>
+        <td>
+          102
+        </td>
+        <td>
+          98
+        </td>
+        <td>
+          3024
+          -
+          3046
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.ResultSet.getInt
+        </td>
+        <td style="background: #F0ADAD">
+          EmpResultSet.getInt(5)
+        </td>
+      </tr><tr>
+        <td>
+          103
+        </td>
+        <td>
+          99
+        </td>
+        <td>
+          3073
+          -
+          3095
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.ResultSet.getInt
+        </td>
+        <td style="background: #F0ADAD">
+          EmpResultSet.getInt(6)
+        </td>
+      </tr><tr>
+        <td>
+          104
+        </td>
+        <td>
+          101
+        </td>
+        <td>
+          3124
+          -
+          3124
+        </td>
+        <td>
+          TypeApply
+        </td>
+        <td>
+          scala.collection.immutable.List.canBuildFrom
+        </td>
+        <td style="background: #F0ADAD">
+          immutable.this.List.canBuildFrom[EmployeeOperation.this.Employee]
+        </td>
+      </tr><tr>
+        <td>
+          104
+        </td>
+        <td>
+          100
+        </td>
+        <td>
+          3125
+          -
+          3175
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.EmployeeOperation.Employee.apply
+        </td>
+        <td style="background: #F0ADAD">
+          EmployeeOperation.this.Employee.apply(id, name, address, phone, deptId, projId)
+        </td>
+      </tr><tr>
+        <td>
+          104
+        </td>
+        <td>
+          102
+        </td>
+        <td>
+          3109
+          -
+          3176
+        </td>
+        <td>
+          ApplyToImplicitArgs
+        </td>
+        <td>
+          scala.collection.immutable.List.+:
+        </td>
+        <td style="background: #F0ADAD">
+          employeeList.+:[EmployeeOperation.this.Employee, List[EmployeeOperation.this.Employee]](EmployeeOperation.this.Employee.apply(id, name, address, phone, deptId, projId))(immutable.this.List.canBuildFrom[EmployeeOperation.this.Employee])
+        </td>
+      </tr><tr>
+        <td>
+          110
+        </td>
+        <td>
+          110
+        </td>
+        <td>
+          3301
+          -
+          3332
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.String.+
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQLException &quot;.+(ex.getMessage())
+        </td>
+      </tr><tr>
+        <td>
+          110
+        </td>
+        <td>
+          109
+        </td>
+        <td>
+          3319
+          -
+          3332
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Throwable.getMessage
+        </td>
+        <td style="background: #F0ADAD">
+          ex.getMessage()
+        </td>
+      </tr><tr>
+        <td>
+          110
+        </td>
+        <td>
+          108
+        </td>
+        <td>
+          3301
+          -
+          3316
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQLException &quot;
+        </td>
+      </tr><tr>
+        <td>
+          110
+        </td>
+        <td>
+          111
+        </td>
+        <td>
+          3293
+          -
+          3333
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;SQLException &quot;.+(ex.getMessage()))
+        </td>
+      </tr><tr>
+        <td>
+          111
+        </td>
+        <td>
+          112
+        </td>
+        <td>
+          3347
+          -
+          3363
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.collection.immutable.Nil
+        </td>
+        <td style="background: #F0ADAD">
+          scala.collection.immutable.Nil
+        </td>
+      </tr><tr>
+        <td>
+          116
+        </td>
+        <td>
+          113
+        </td>
+        <td>
+          3428
+          -
+          3457
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;Connection Failed!&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          117
+        </td>
+        <td>
+          114
+        </td>
+        <td>
+          3467
+          -
+          3483
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          scala.collection.immutable.Nil
+        </td>
+        <td style="background: #F0ADAD">
+          scala.collection.immutable.Nil
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

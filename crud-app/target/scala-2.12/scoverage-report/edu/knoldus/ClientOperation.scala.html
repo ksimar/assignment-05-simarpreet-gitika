@@ -1,0 +1,282 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          edu\knoldus\ClientOperation.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package edu.knoldus
+</span>2 <span style=''>
+</span>3 <span style=''>/**
+</span>4 <span style=''>  * Created by gitik on 01-02-2017.
+</span>5 <span style=''>  */
+</span>6 <span style=''>class ClientOperation {
+</span>7 <span style=''>
+</span>8 <span style=''>  val conn = </span><span style='background: #F0ADAD'>ConnectionFactory.getConnection()</span><span style=''>
+</span>9 <span style=''>
+</span>10 <span style=''>  case class Client(id: Int, projectId: Int, name: String, address: String)
+</span>11 <span style=''>
+</span>12 <span style=''>  def create(id: Int, projectId: Int, name: String, address: String):Int = {
+</span>13 <span style=''>
+</span>14 <span style=''>    </span><span style='background: #F0ADAD'>conn</span><span style=''> match {
+</span>15 <span style=''>      case Some(c) =&gt; {
+</span>16 <span style=''>        val statement = </span><span style='background: #F0ADAD'>c.prepareStatement(&quot;insert into Client values(?,?,?,?)&quot;)</span><span style=''>
+</span>17 <span style=''>        </span><span style='background: #F0ADAD'>statement.setInt(1,id)</span><span style=''>
+</span>18 <span style=''>        </span><span style='background: #F0ADAD'>statement.setInt(2,projectId)</span><span style=''>
+</span>19 <span style=''>        </span><span style='background: #F0ADAD'>statement.setString(3,name)</span><span style=''>
+</span>20 <span style=''>        </span><span style='background: #F0ADAD'>statement.setString(4,address)</span><span style=''>
+</span>21 <span style=''>        val resCreate = </span><span style='background: #F0ADAD'>statement.executeUpdate()</span><span style=''>
+</span>22 <span style=''>        resCreate
+</span>23 <span style=''>      }
+</span>24 <span style=''>      case None =&gt; {
+</span>25 <span style=''>        </span><span style='background: #F0ADAD'>println(&quot;Connection Failed!&quot;)</span><span style=''>
+</span>26 <span style=''>        -</span><span style='background: #F0ADAD'>1</span><span style=''>
+</span>27 <span style=''>      }
+</span>28 <span style=''>    }
+</span>29 <span style=''>  }
+</span>30 <span style=''>
+</span>31 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          8
+        </td>
+        <td>
+          1
+        </td>
+        <td>
+          111
+          -
+          144
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.ConnectionFactory.getConnection
+        </td>
+        <td style="background: #F0ADAD">
+          ConnectionFactory.getConnection()
+        </td>
+      </tr><tr>
+        <td>
+          14
+        </td>
+        <td>
+          2
+        </td>
+        <td>
+          311
+          -
+          315
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          edu.knoldus.ClientOperation.conn
+        </td>
+        <td style="background: #F0ADAD">
+          ClientOperation.this.conn
+        </td>
+      </tr><tr>
+        <td>
+          16
+        </td>
+        <td>
+          3
+        </td>
+        <td>
+          374
+          -
+          430
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Connection.prepareStatement
+        </td>
+        <td style="background: #F0ADAD">
+          c.prepareStatement(&quot;insert into Client values(?,?,?,?)&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          4
+        </td>
+        <td>
+          440
+          -
+          462
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setInt(1, id)
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          5
+        </td>
+        <td>
+          472
+          -
+          501
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setInt(2, projectId)
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          6
+        </td>
+        <td>
+          511
+          -
+          538
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setString(3, name)
+        </td>
+      </tr><tr>
+        <td>
+          20
+        </td>
+        <td>
+          7
+        </td>
+        <td>
+          548
+          -
+          578
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setString(4, address)
+        </td>
+      </tr><tr>
+        <td>
+          21
+        </td>
+        <td>
+          8
+        </td>
+        <td>
+          604
+          -
+          629
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.executeUpdate
+        </td>
+        <td style="background: #F0ADAD">
+          statement.executeUpdate()
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          9
+        </td>
+        <td>
+          689
+          -
+          718
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;Connection Failed!&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          10
+        </td>
+        <td>
+          729
+          -
+          730
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -1
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>

@@ -1,0 +1,380 @@
+<html>
+      <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title id="title">
+          edu\knoldus\DepartmentOperation.scala.html
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/css/theme.default.min.css" type="text/css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.20.1/js/jquery.tablesorter.min.js"></script><link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" type="text/css"/><script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script><script type="text/javascript">
+        $(document).ready(function() {$(".tablesorter").tablesorter();});
+      </script>
+        <style>
+          table.codegrid { font-family: monospace; font-size: 12px; width: auto!important; }table.statementlist { width: auto!important; font-size: 13px; } table.codegrid td { padding: 0!important; border: 0!important } table td.linenumber { width: 40px!important; } 
+        </style>
+      </head>
+      <body style="font-family: monospace;">
+        <ul class="nav nav-tabs">
+          <li>
+            <a href="#codegrid" data-toggle="tab">Codegrid</a>
+          </li>
+          <li>
+            <a href="#statementlist" data-toggle="tab">Statement List</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="codegrid">
+            <pre style='font-size: 12pt; font-family: courier;'>1 <span style=''>package edu.knoldus
+</span>2 <span style=''>
+</span>3 <span style=''>import java.sql._
+</span>4 <span style=''>
+</span>5 <span style=''>/**
+</span>6 <span style=''>  * Created by gitik on 01-02-2017.
+</span>7 <span style=''>  */
+</span>8 <span style=''>class DepartmentOperation {
+</span>9 <span style=''>
+</span>10 <span style=''>  val conn = </span><span style='background: #F0ADAD'>ConnectionFactory.getConnection()</span><span style=''>
+</span>11 <span style=''>
+</span>12 <span style=''>  def create(id: Int, name: String): Int = {
+</span>13 <span style=''>
+</span>14 <span style=''>    </span><span style='background: #F0ADAD'>conn</span><span style=''> match {
+</span>15 <span style=''>      case Some(c) =&gt; {
+</span>16 <span style=''>        try {
+</span>17 <span style=''>          </span><span style='background: #F0ADAD'>val statement = c.prepareStatement(&quot;insert into Department values(?,?)&quot;)
+</span>18 <span style=''></span><span style='background: #F0ADAD'>          statement.setInt(1, id)
+</span>19 <span style=''></span><span style='background: #F0ADAD'>          statement.setString(2, name)
+</span>20 <span style=''></span><span style='background: #F0ADAD'>          val resCreate = statement.executeUpdate()
+</span>21 <span style=''></span><span style='background: #F0ADAD'>          resCreate</span><span style=''>
+</span>22 <span style=''>        }
+</span>23 <span style=''>        catch {
+</span>24 <span style=''>          case ex: SQLException =&gt; {
+</span>25 <span style=''>            </span><span style='background: #F0ADAD'>println(&quot;SQL Exception &quot; + ex.getMessage)</span><span style=''>
+</span>26 <span style=''>            -</span><span style='background: #F0ADAD'>2</span><span style=''>
+</span>27 <span style=''>          }
+</span>28 <span style=''>        }
+</span>29 <span style=''>      }
+</span>30 <span style=''>      case None =&gt; {
+</span>31 <span style=''>        </span><span style='background: #F0ADAD'>println(&quot;Connection Failed!&quot;)</span><span style=''>
+</span>32 <span style=''>        -</span><span style='background: #F0ADAD'>1</span><span style=''>
+</span>33 <span style=''>      }
+</span>34 <span style=''>    }
+</span>35 <span style=''>  }
+</span>36 <span style=''>
+</span>37 <span style=''>  case class Department(id: Int, name: String)
+</span>38 <span style=''>
+</span>39 <span style=''>}
+</span></pre>
+          </div>
+          <div class="tab-pane" id="statementlist">
+            <table cellspacing="0" cellpadding="0" class="table statementlist">
+      <tr>
+        <th>Line</th>
+        <th>Stmt Id</th>
+        <th>Pos</th>
+        <th>Tree</th>
+        <th>Symbol</th>
+        <th>Code</th>
+      </tr><tr>
+        <td>
+          10
+        </td>
+        <td>
+          29
+        </td>
+        <td>
+          136
+          -
+          169
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          edu.knoldus.ConnectionFactory.getConnection
+        </td>
+        <td style="background: #F0ADAD">
+          ConnectionFactory.getConnection()
+        </td>
+      </tr><tr>
+        <td>
+          14
+        </td>
+        <td>
+          30
+        </td>
+        <td>
+          225
+          -
+          229
+        </td>
+        <td>
+          Select
+        </td>
+        <td>
+          edu.knoldus.DepartmentOperation.conn
+        </td>
+        <td style="background: #F0ADAD">
+          DepartmentOperation.this.conn
+        </td>
+      </tr><tr>
+        <td>
+          16
+        </td>
+        <td>
+          35
+        </td>
+        <td>
+          289
+          -
+          510
+        </td>
+        <td>
+          Block
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          {
+  val statement: java.sql.PreparedStatement = c.prepareStatement(&quot;insert into Department values(?,?)&quot;);
+  statement.setInt(1, id);
+  statement.setString(2, name);
+  val resCreate: Int = statement.executeUpdate();
+  resCreate
+}
+        </td>
+      </tr><tr>
+        <td>
+          17
+        </td>
+        <td>
+          31
+        </td>
+        <td>
+          305
+          -
+          361
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.Connection.prepareStatement
+        </td>
+        <td style="background: #F0ADAD">
+          c.prepareStatement(&quot;insert into Department values(?,?)&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          18
+        </td>
+        <td>
+          32
+        </td>
+        <td>
+          373
+          -
+          396
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setInt
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setInt(1, id)
+        </td>
+      </tr><tr>
+        <td>
+          19
+        </td>
+        <td>
+          33
+        </td>
+        <td>
+          408
+          -
+          436
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.setString
+        </td>
+        <td style="background: #F0ADAD">
+          statement.setString(2, name)
+        </td>
+      </tr><tr>
+        <td>
+          20
+        </td>
+        <td>
+          34
+        </td>
+        <td>
+          464
+          -
+          489
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.sql.PreparedStatement.executeUpdate
+        </td>
+        <td style="background: #F0ADAD">
+          statement.executeUpdate()
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          38
+        </td>
+        <td>
+          598
+          -
+          630
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.String.+
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;.+(ex.getMessage())
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          37
+        </td>
+        <td>
+          617
+          -
+          630
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          java.lang.Throwable.getMessage
+        </td>
+        <td style="background: #F0ADAD">
+          ex.getMessage()
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          36
+        </td>
+        <td>
+          598
+          -
+          614
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          &quot;SQL Exception &quot;
+        </td>
+      </tr><tr>
+        <td>
+          25
+        </td>
+        <td>
+          39
+        </td>
+        <td>
+          590
+          -
+          631
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;SQL Exception &quot;.+(ex.getMessage()))
+        </td>
+      </tr><tr>
+        <td>
+          26
+        </td>
+        <td>
+          40
+        </td>
+        <td>
+          646
+          -
+          647
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -2
+        </td>
+      </tr><tr>
+        <td>
+          31
+        </td>
+        <td>
+          41
+        </td>
+        <td>
+          712
+          -
+          741
+        </td>
+        <td>
+          Apply
+        </td>
+        <td>
+          scala.Predef.println
+        </td>
+        <td style="background: #F0ADAD">
+          scala.Predef.println(&quot;Connection Failed!&quot;)
+        </td>
+      </tr><tr>
+        <td>
+          32
+        </td>
+        <td>
+          42
+        </td>
+        <td>
+          752
+          -
+          753
+        </td>
+        <td>
+          Literal
+        </td>
+        <td>
+          &lt;nosymbol&gt;
+        </td>
+        <td style="background: #F0ADAD">
+          -1
+        </td>
+      </tr>
+    </table>
+          </div>
+        </div>
+      </body>
+    </html>
